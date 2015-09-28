@@ -15,9 +15,13 @@ Format of input training database file: The file must be a .csv file, in which e
 
 To run the program:
 
-Once you have received the .jar file, open a terminal/command window. Navigate to the location of the .jar file on your machine. Then, type java –jar FVS.jar to start the program. Follow the instructions on the terminal window to use the program.
+Step 1: Use the above "Usage" instructions to prepare your training database.
+Step 2: Download the .jar file from the git page by viewing the raw version.
+Step 3: Open a terminal window and navigate to your downloads directory.
+Step 4: Use the command "java -jar MDA.jar" to start the program.
+Step 5: Input the directory path name for the training database and press enter
 
-User input: User inputs a file path name to the training database as well as a path name to the file that will contain results. Results will either be appended to an already existing file, or the file will be created and written to.
+User input: User inputs a file path name to the training database. Output will be written to the same directory as the training database with the word results appended to it. The output will always be a .csv file.
 
 Format of the output results file: 
 
