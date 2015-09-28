@@ -15,7 +15,7 @@ Format of input training database file: The file must be a .csv file, in which e
 
 To run the program:
 
-Once you have received the .jar file, open a terminal/command window. Navigate to the location of the .jar file on your machine. Then, type java –jar FVSelectionVers1.jar to start the program. Follow the instructions on the terminal window to use the program.
+Once you have received the .jar file, open a terminal/command window. Navigate to the location of the .jar file on your machine. Then, type java –jar FVS.jar to start the program. Follow the instructions on the terminal window to use the program.
 
 User input: User inputs a file path name to the training database as well as a path name to the file that will contain results. Results will either be appended to an already existing file, or the file will be created and written to.
 
