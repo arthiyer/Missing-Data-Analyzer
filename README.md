@@ -16,8 +16,8 @@ Format of input training database file: The file must be a .csv file, in which e
 To run the program:
 
 Step 1: Use the above "Usage" instructions to prepare your training database.
-Step 2: Download the .jar file from the git page by viewing the raw version.
-Step 3: Open a terminal window and navigate to your downloads directory.
+Step 2: Download the program by pressing "Download zip" in the bottom right corner of the git page.
+Step 3: Open a terminal window and navigate to your downloads directory, where you can unzip the file if you machine does not         do this for you.
 Step 4: Use the command "java -jar MDA.jar" to start the program.
 Step 5: Input the directory path name for the training database and press enter
 
