@@ -11,17 +11,19 @@ This program is useful in offering information to machine learning analysts abou
 Usage:
 
 User prepares the training database, which is inputted into the program. 
+
+
 Format of input training database file: The file must be a .csv file, in which every FV (feature vector) is a column with a title at the top. The last column MUST be a class mix classification using 1 and 0.  (examples are in the report reference below)
 
 To run the program:
 
 Step 1: Use the above "Usage" instructions to prepare your training database.
-Step 2: Download the .jar file from the git page by viewing the raw version.
-Step 3: Open a terminal window and navigate to your downloads directory.
+Step 2: Download the program by pressing "Download zip" in the bottom right corner of the git page.
+Step 3: Open a terminal window and navigate to your downloads directory, where you can unzip the file if you machine does not         do this for you.
 Step 4: Use the command "java -jar MDA.jar" to start the program.
 Step 5: Input the directory path name for the training database and press enter
 
-User input: User inputs a file path name to the training database. Output will be written to the same directory as the training database with the word results appended to it. The output will always be a .csv file.
+User input: User inputs a file path name to the training database. Output will be written to the same directory as the training database with the word results appended to it. The output will always be a .csv file. For example, if the inputted file path name for the training database is "Users/User/Documents/TB.csv", then the output file will be found at "Users/User/Documents/TBresults.csv".
 
 Format of the output results file: 
 
