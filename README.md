@@ -25,9 +25,9 @@ Step 3: Open a terminal window and navigate to your downloads directory, where y
 
 Step 4: Use the command "java -jar MDA.jar" to start the program.
 
-Step 5: Input the directory path name for the training database and press enter
+Step 5: Input the directory path name for the training database and press enter. Now, the program will create the results output file that is detailed to a larger extent below under the heading "Format of the output results file"
 
-Step 6: If you want the program to construct one of the subset options for you, input the exclusive FV name of the limit to the subset and press enter. Otherwise, type 'NO'.
+Step 6: Now, review the results output file and decide whether or not you want the program to construct an output file for you. If you want the program to construct one of the subset options for you, input the exclusive FV name of the limit to the subset and press enter. Otherwise, type 'NO'.
 
 User input: User inputs a file path name to the training database. Output will be written to the same directory as the training database with the describing words appended to it. The output will always be a .csv file. For example, if the inputted file path name for the training database is "Users/User/Documents/TB.csv", then the output file will be found at "Users/User/Documents/TB_results.csv". Similarly, the second file output that contains the subset of the data will be able to be found at "Users/User/Documents/TB_subset_matrix.csv".
 
