@@ -4,21 +4,21 @@ Purpose of the Program:
 
 Missing values in  training databases pose severe problems in Machine Learning (ML)  analysis: 
 
-a) large majority of the main ML algorithms  do not deal well or not at all with missing data
+  a) large majority of the main ML algorithms  do not deal well or not at all with missing data
 
-b) eliminating samples with missing data further reduces sample sets in those training databases, thus  impeding effective  ML training
+  b) eliminating samples with missing data further reduces sample sets in those training databases, thus  impeding effective       ML training
 
-c) ML analyst would benefit from insights on what features need what level of imputing (e.g. replacement of missing values) and tradeoffs between using for example larger number of features with imputing vs. less features needing less imputing. 
+  c) ML analyst would benefit from insights on what features need what level of imputing (e.g. replacement of missing values)      and tradeoffs between using for example larger number of features with imputing vs. less features needing less imputing. 
 
 The Missing Data Analyzer program is intended to be run on the ML training database before the actual analysis and as an output it provides a number of statistics that help the ML analyst understand the following: 
 
-a) the amount of missing values for each feature
+  a) the amount of missing values for each feature
 
-b) how many training samples are available for various combinations of feature values
+  b) how many training samples are available for various combinations of feature values
 
-c) the number of samples of class labeled 1 for binary class problem 
+  c) the number of samples of class labeled 1 for binary class problem 
 
-d) the level of imputing needed. The Missing Data Analyzer does not do the actual imputing, since it is highly application dependent.
+  d) the level of imputing needed. The Missing Data Analyzer does not do the actual imputing, since it is highly application       dependent.
 
 ==============================================================================================================================
 
@@ -36,17 +36,17 @@ Format of input training database file: The file must be a .csv file, in which e
 
 To run the program:
 
-Step 1: Use the above "Usage" instructions to prepare your training database.
+  Step 1: Use the above "Usage" instructions to prepare your training database.
 
-Step 2: Download the program by pressing "Download zip" in the bottom right corner of the git page.
+  Step 2: Download the program by pressing "Download zip" in the bottom right corner of the git page.
 
-Step 3: Open a terminal window and navigate to your downloads directory, where you can unzip the file if you machine does not         do this for you.
+  Step 3: Open a terminal window and navigate to your downloads directory, where you can unzip the file if you machine does             not do this for you.
 
-Step 4: Use the command "java -jar MDA.jar" to start the program.
+  Step 4: Use the command "java -jar MDA.jar" to start the program.
 
-Step 5: Input the directory path name for the training database and press enter. Now, the program will create the results output file that is detailed to a larger extent below under the heading "Format of the output results file"
+  Step 5: Input the directory path name for the training database and press enter. Now, the program will create the results             output file that is detailed to a larger extent below under the heading "Format of the output results file"
 
-Step 6: Now, review the results output file and decide whether or not you want the program to construct another output file for you that will contain a subset of the database based on your instructions. If you want the program to construct one of the subset options for you, input the exclusive feature vector name of the limit to the subset and press enter. Otherwise, type 'NO'.
+  Step 6: Now, review the results output file and decide whether or not you want the program to construct another output file           for you that will contain a subset of the database based on your instructions. If you want the program to construct           one of the subset options for you, input the exclusive feature vector name of the limit to the subset and press               enter. Otherwise, type 'NO'.
 
 ==============================================================================================================================
 
