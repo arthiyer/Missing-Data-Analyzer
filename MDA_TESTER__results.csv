@@ -40,22 +40,36 @@ FV5,8,0.0
 FV7,8,0.0
 
 
+#1s in ClassMix in terms of sample subsets
+samples 1 to 1, 7
+samples 1 to 2, 7
+samples 1 to 3, 5
+samples 1 to 4, 4
+samples 1 to 5, 1
+samples 1 to 6, 1
+samples 1 to 7, 1
+samples 1 to 8, 0
+samples 1 to 9, 0
+samples 1 to 10, 0
+samples 1 to 11, 0
+samples 1 to 12, 0
+samples 1 to 13, 0
 Data showing number of available samples with no missing data (class mix and total 
  number of missing elements for chosen FV subset): 
 Note: entry FV(i) denotes a subset of FV from 1-i 
 
 
-FV Subset Used, #samples with no missing data, #1s in Class mix, Total number of missing elements
-FV1 to FV1, 9, 7, 0
-FV1 to FV3, 7, 7, 4
-FV1 to FV10, 5, 5, 8
-FV1 to FV4, 4, 4, 13
-FV1 to FV9, 1, 1, 18
-FV1 to FV2, 1, 1, 23
-FV1 to FV6, 1, 1, 30
-FV1 to FV8, 0, 0, 37
-FV1 to FV5, 0, 0, 44
-FV1 to FV7, 0, 0, 52
+FV Subset Used, #samples with no missing data, Total number of missing elements
+FV1 to FV1, 9, 0
+FV1 to FV3, 7, 4
+FV1 to FV10, 5, 8
+FV1 to FV4, 4, 13
+FV1 to FV9, 1, 18
+FV1 to FV2, 1, 23
+FV1 to FV6, 1, 30
+FV1 to FV8, 0, 37
+FV1 to FV5, 0, 44
+FV1 to FV7, 0, 52
 
 
 
