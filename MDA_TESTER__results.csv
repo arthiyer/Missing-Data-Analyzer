@@ -10,68 +10,35 @@ FV sorted in terms of missing data (ascending):
 
 
 Name of FV, Amount of empty data in the FV, % empty data in the FV
-FV1,4,0.0
+FV3,0,0.0
+FV7,0,0.0
+FV1,4,30.76923179626465
+FV4,5,38.46154022216797
+FV10,5,38.46154022216797
+FV9,5,38.46154022216797
+FV2,7,53.84615707397461
+FV6,7,53.84615707397461
+FV8,7,53.84615707397461
+FV5,8,61.5384635925293
 
-
-FV3,4,0.0
-
-
-FV10,5,0.0
-
-
-FV4,5,0.0
-
-
-FV9,5,0.0
-
-
-FV2,7,0.0
-
-
-FV6,7,0.0
-
-
-FV8,7,0.0
-
-
-FV5,8,0.0
-
-
-FV7,8,0.0
-
-
-#1s in ClassMix in terms of sample subsets
-samples 1 to 1, 7
-samples 1 to 2, 7
-samples 1 to 3, 5
-samples 1 to 4, 4
-samples 1 to 5, 1
-samples 1 to 6, 1
-samples 1 to 7, 1
-samples 1 to 8, 0
-samples 1 to 9, 0
-samples 1 to 10, 0
-samples 1 to 11, 0
-samples 1 to 12, 0
-samples 1 to 13, 0
-Data showing number of available samples with no missing data (class mix and total 
+ Data showing number of available samples with no missing data (class mix and total 
  number of missing elements for chosen FV subset): 
 Note: entry FV(i) denotes a subset of FV from 1-i 
 
-
-FV Subset Used, #samples with no missing data, Total number of missing elements
-FV1 to FV1, 9, 0
-FV1 to FV3, 7, 4
-FV1 to FV10, 5, 8
-FV1 to FV4, 4, 13
-FV1 to FV9, 1, 18
-FV1 to FV2, 1, 23
-FV1 to FV6, 1, 30
-FV1 to FV8, 0, 37
-FV1 to FV5, 0, 44
-FV1 to FV7, 0, 52
+Number of training samples with no missing values and its related class mix using ALL features FVi is given as the last entry in the list below 
 
 
+FV Subset Used, #samples with no missing data, Class Mix
+FV3 to FV3, 13, 0
+FV3 to FV7, 13, 0
+FV3 to FV1, 9, 0
+FV3 to FV4, 7, 4
+FV3 to FV10, 4, 9
+FV3 to FV9, 1, 14
+FV3 to FV2, 1, 19
+FV3 to FV6, 1, 26
+FV3 to FV8, 0, 33
+FV3 to FV5, 0, 40
 
 
 
