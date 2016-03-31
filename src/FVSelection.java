@@ -50,6 +50,8 @@ import java.lang.*;
 public class FVSelection
 {
 
+    //PART 1 OF CODE
+    
     /**
      *  # samples (rows) there are in the data
      */
@@ -116,9 +118,12 @@ public class FVSelection
      * The array that stores all that indices that should be included in the subset matrix
      */
     private ArrayList <Integer> idealIndexes;
-    
+
     private Scanner in = new Scanner(System.in);
-    
+
+    private String date;
+    private int[] cl;
+
     /**
      * Empty constructor for the FVSelection class. The constructor 
      * does not need to do anything because this class employs 
@@ -147,6 +152,9 @@ public class FVSelection
 
         int i = 0;
         while (true) {
+            System.out.println("What is the date that you would like to be reflected in the program's output?");
+            date = in.nextLine();
+
             if (i==0) {
                 System.out.println("Would you like to input the .csv file path name of your training database?");
                 System.out.print("If not, type no now. Otherwise, input the path name now.");
@@ -154,11 +162,10 @@ public class FVSelection
             }
             System.out.println();
             directory = in.nextLine();
-            System.out.println();
-            
 
             try
             {
+
                 if (directory.equalsIgnoreCase("no")) {
                     System.exit(-1);
                 }
@@ -166,7 +173,6 @@ public class FVSelection
                 Scanner scanner = new Scanner(new File(directory));
                 while(scanner.hasNextLine())
                 {
-
                     String sample = scanner.nextLine();
                     if (numberOfSamples==0) 
                     {
@@ -195,7 +201,6 @@ public class FVSelection
             System.exit(0);
         }
         classMix = new int[numberOfSamples];
-
         int lineTracker = 0;
         try
         {
@@ -216,14 +221,12 @@ public class FVSelection
                         featureVectors[k].setName(instances[k]);
                         featureVectors[k].setPosition(k);
                     }
-
                 }
 
                 else {
 
                     for(int c = 0; c < numberOfFeatureVectors; c++) 
                     {
-
                         if ((instances[c].equals(""))) 
                         {
                             dataset[lineTracker-1][c] = false; 
@@ -271,9 +274,10 @@ public class FVSelection
 
             }
             featureVectors[columnTracker].setSamples(sampleTemporary);
-
         }
     }
+    
+    //PART 2 OF CODE
 
     /**
      * Sorts the featureVectors ascendingly based on how many
@@ -422,12 +426,13 @@ public class FVSelection
      */ 
     public void featureVectorAnalysis()
     {
-        perfectClassMix = new int[classMix.length];
+        classMix();
+        perfectClassMix = new int[numberOfFeatureVectors];
 
         //the number of samples that are deemed full for each FV
         int counter=0; 
 
-        //the FV that is currently being looked at
+        //the number of samples that are deemed full for each FV
         int populatedColumns = 0; 
 
         //a boolean array that shows when a sample is no longer full
@@ -464,7 +469,7 @@ public class FVSelection
 
                 {
                     counter++;
-                    if (classMix[rowTracker]==1 && populatedColumns <= numberOfFeatureVectors) {
+                    if (cl[rowTracker]==1 && populatedColumns <= numberOfFeatureVectors) {
                         perfectClassMix[populatedColumns]++;
                     }
                 }
@@ -480,7 +485,37 @@ public class FVSelection
         }
 
         analysis = featureVectorAnalysis;
+
     }
+
+    public int[] classMix(){
+        try{
+            Scanner scanner = new Scanner(new File(directory));
+            cl = new int [numberOfSamples];
+            int i = 0;
+
+            while(scanner.hasNextLine()){ 
+                if (i==0){
+                    String[] instances = scanner.nextLine().split(",");
+                }
+                i++;
+                if (i>0 /**&& samplesCounter<numberOfSamples*/) {
+                    for(int a = 0; a< numberOfSamples; a++){
+                        String[] instances = scanner.nextLine().split(",");
+                        cl[a] = Integer.parseInt(instances[instances.length - 1]);
+
+                    }
+                }
+
+            }
+        }
+        catch(IOException exception){
+
+        }
+        return cl;
+    }
+    
+    //PART 3 OF CODE
 
     /**
      * Creates the first output file for this program
@@ -489,44 +524,47 @@ public class FVSelection
         String path = (directory.substring(0,directory.length()-4) + "_results.csv");
 
         try {
+            Scanner scanner = new Scanner(new File(directory));
             WriteFile data = new WriteFile(path, true);
             data.writeToFile("Missing Data Analyzer Results: \n\n\n");
+            data.writeToFile("Name of this results file: " + path);
+            data.writeToFile("Name of the input file: " + directory + "\n\n");
             data.writeToFile("Total number of samples: " + numberOfSamples);
             data.writeToFile("Total number of Feature Values(FV): " + numberOfFeatureVectors + "\n\n");
+            data.writeToFile("date: " + date + "\n\n");
             data.writeToFile("FV sorted in terms of missing data (ascending): \n\n");
-            data.writeToFile("Name of FV, Amount of empty data in the FV, % empty data in the FV");
+
             for (int i = 0; i < numberOfFeatureVectors; i++) {
-                //its zero because integer. pass as float
                 double percEmpt = ((float)featureVectors[i].getEmptyData()/(numberOfSamples))*100;
                 data.writeToFile(featureVectors[i].getName() + "," + Integer.toString(featureVectors[i].getEmptyData()) + "," + Double.toString(percEmpt));
-            }
 
-            data.writeToFile("\n Data showing number of available samples with no missing data (class mix and total \n number of missing elements for chosen FV subset): ");
-            data.writeToFile("Note: entry FV(i) denotes a subset of FV from 1-i \n");
-            data.writeToFile("Number of training samples with no missing values and its related class mix using ALL features FVi is given as the last entry in the list below \n\n");
+            }
+            data.writeToFile("\n Data showing number of available samples with no missing data (class mix and total number ");
+            data.writeToFile("of missing elements for chosen FV subset): ");
+            data.writeToFile("e.g. FV5 denotes subset of feature vectors with amount of empty data <= FV5.");
+            data.writeToFile("Number of training samples with no missing values and its related class mix using ALL features FVi is given ");
+            data.writeToFile("as the last entry in the list below \n");
+            data.writeToFile("The class mix can be defined as the number of ones in the chosen subset of training samples. \n\n");
             data.writeToFile("FV Subset Used, #samples with no missing data, Class Mix");
 
             for(int i = 0; i < numberOfFeatureVectors; i++) {
-                data.writeToFile(featureVectors[0].getName() + " to " + featureVectors[i].getName() + ", " + Integer.toString(analysis[i]) + ", " + Integer.toString(emptyDataSubset(i)));
+                data.writeToFile(featureVectors[0].getName() + " to " + featureVectors[i].getName() + ", " + Integer.toString(analysis[i]) + ", " + perfectClassMix[i]);
             }
 
+            data.writeToFile("The FV subset in the list above (first column) is denoted for brevity ");
+            data.writeToFile("by only showing first and last item in the FV subset where the subset contains FV with least number ");
+            data.writeToFile("of empty data as the first element (top one on the list of sorted FVi in the first results list above) ");
+            data.writeToFile("then grows by adding next FV from that sorted list of FV with missing data top to bottom one by one. \n\n");
+
             data.writeToFile("\n\n\n");
-            data.writeToFile("Once the user analyses the data above he/she can explore tradeoffs between choosing feature subset ");
-            data.writeToFile("vs. available samples (with missing or no missing data) checking at the same time that class mix satisfies ");
-            data.writeToFile("ML needs. Then user can extract desired samples using utility ExtractSamples. More specifically:");
-            data.writeToFile("Based on desired number of  samples related number  of feature values FVi  as well as class mix for ");
-            data.writeToFile("available samples (which may depend on specific ML algorithm) the user can chose the best “operating ");
-            data.writeToFile("point” e.g. subset of feature values FVi  for which to extract samples for further processing. ");
-            data.writeToFile("User then runs ExtractSamples utility which for a given subset of feature values FVi  (user input)  ");
-            data.writeToFile("allows extraction of:");
-            data.writeToFile("* Only samples with no missing values (option c) – number of these samples is less than original ");
-            data.writeToFile("number of samples and is given in the data above ");
-            data.writeToFile("* All samples (option m) in which case some will have missing values");
-            data.writeToFile("ExtractSamples will then create news training DB in CSV format with each sample having original ID ");
-            data.writeToFile("preserved followed by chosen subset of Feature Values FVi (with original names preserved) and ");
-            data.writeToFile("corresponding (original) class label. Note that the order of samples and feature values will be different ");
-            data.writeToFile("from the original database.  In case user chooses option “m” the actual missing value replacement is left ");
-            data.writeToFile("to the user since it is highly application and data dependent.");
+            data.writeToFile("Once the user reviews  the results above he/she can select which subset of training data with no");
+            data.writeToFile("missing values to extract. This is done by choosing the desired subset of FVi  with related number of");
+            data.writeToFile("training samples with no missing data and class mix from the results list above. The user then follows");
+            data.writeToFile("the dialog in the original MDA program and enters the desired FVi subset");
+            data.writeToFile("MDA then extracts the data into a filtered training databases with file generated");
+            data.writeToFile("name as (DDD explain how is name derived) comprising of  chosen subset of FVi and training samples");
+            data.writeToFile("with their class labels where extracted training samples have no missing values");
+
         }
         catch(IOException exception){
 
@@ -551,6 +589,8 @@ public class FVSelection
         }
         return answer;
     }
+    
+    //PART 4 OF CODE
 
     /**
      * takes the second input from the user to be used for the subset portion of the program.
@@ -601,6 +641,7 @@ public class FVSelection
      * Constructs an array of just the indices that will be used in the subset DB
      */
     private void constructIdealIdexesArray() {
+
         for (int i = 0; i < featureVectors.length; i++) {
             if (featureVectors[i].getName().equals(subsetFVName)) {
                 subsetGreatestIndex = featureVectors[i].getSortedPosition();
@@ -610,12 +651,11 @@ public class FVSelection
         idealIndexes = new ArrayList<Integer>();
         int idealIndexesIndex = -1;
 
-        for (int i = 0; i < featureVectors.length; i++) {
-            if (featureVectors[i].getSortedPosition() <= subsetGreatestIndex){
+        for(int i = 0; i < featureVectors.length; i++) {
+            if ((featureVectors[i].getSortedPosition() <= subsetGreatestIndex) && 
+            (featureVectors[i].getEmptyData() == 0)){
                 idealIndexesIndex++;
                 idealIndexes.add(featureVectors[i].getPosition());
-                //make it inclusive
-
             }
         }
 
@@ -641,10 +681,10 @@ public class FVSelection
                     for (int k = 0; k < instances.length; k++) {
                         if (idealIndexes.get(i) == k) {
                             writeThisToFile += instances[k] + ",";
-
                         }
                     }
                 }
+                writeThisToFile += instances[instances.length - 1];
                 data.writeToFile(writeThisToFile);
                 writeThisToFile = "";
             }
@@ -668,12 +708,23 @@ public class FVSelection
         FVSelection a = new FVSelection();
 
         a.readFileAndPopulate();
+        a.classMix();
+
+        //System.out.println("main1");
         a.selectionSortEmptyDataAscending();
+        //a.classMixArray();
+        //System.out.println("main2");
         a.featureVectorAnalysis();
+        //System.out.println("main3");
         a.populateFirstFileOutput();
+        //System.out.println("main4");
         a.takeSecondInput();
+        //System.out.println("main5");
         a.constructIdealIdexesArray();
+        //System.out.println("main6");
         a.dealWithSubsetDataSet();
+        //System.out.println("main7");
+        a.printData(true);
 
     }
 }
