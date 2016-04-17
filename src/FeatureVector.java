@@ -4,6 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.util.*;
+import java.lang.*;
 /**
  * Creates a FeatureVector and provides the necessary methods for 
  * accessing and maintaining saidFeatureVector object from 
@@ -80,6 +87,16 @@ public class FeatureVector
     
     public void setPosition(int pos) {
         position = pos;
+    }
+    
+    public ArrayList<Integer> getFullIndexes(){
+        ArrayList<Integer> fullIndexes = new ArrayList<Integer>();
+        for(int i = 0; i < samples.length; i++){
+            if (samples[i] = true) {
+                fullIndexes.add(i);
+            }
+        }
+        return fullIndexes;
     }
 
     /**

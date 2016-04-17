@@ -1,3 +1,19 @@
+/**Copyright (c) <2016> <Arthi Iyer>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+and associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial 
+portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 import java.lang.Float;
 import java.lang.String;
 import java.io.File;
@@ -46,12 +62,14 @@ import java.lang.*;
  * @author Arthi Iyer
  * mentors: Dr. Dragutin Petkovic (SFSU), Mr. Mike Wong (SFSU)
  * @version June 27, 2015
+ * 
+ * 
  */
 public class FVSelection
 {
 
     //PART 1 OF CODE
-    
+
     /**
      *  # samples (rows) there are in the data
      */
@@ -118,12 +136,14 @@ public class FVSelection
      * The array that stores all that indices that should be included in the subset matrix
      */
     private ArrayList <Integer> idealIndexes;
+    private ArrayList <String> idealIndexesNames;
 
     private Scanner in = new Scanner(System.in);
 
     private String date;
     private int[] cl;
-
+    private ArrayList<Integer> filteredDBSamples = new ArrayList<Integer>();
+    ArrayList<Integer> allSamples;
     /**
      * Empty constructor for the FVSelection class. The constructor 
      * does not need to do anything because this class employs 
@@ -276,7 +296,7 @@ public class FVSelection
             featureVectors[columnTracker].setSamples(sampleTemporary);
         }
     }
-    
+
     //PART 2 OF CODE
 
     /**
@@ -514,7 +534,7 @@ public class FVSelection
         }
         return cl;
     }
-    
+
     //PART 3 OF CODE
 
     /**
@@ -589,7 +609,7 @@ public class FVSelection
         }
         return answer;
     }
-    
+
     //PART 4 OF CODE
 
     /**
@@ -649,16 +669,56 @@ public class FVSelection
         }
 
         idealIndexes = new ArrayList<Integer>();
+        idealIndexesNames = new ArrayList<String>();
         int idealIndexesIndex = -1;
 
         for(int i = 0; i < featureVectors.length; i++) {
-            if ((featureVectors[i].getSortedPosition() <= subsetGreatestIndex) && 
-            (featureVectors[i].getEmptyData() == 0)){
+            if ((featureVectors[i].getSortedPosition() <= subsetGreatestIndex)){
                 idealIndexesIndex++;
                 idealIndexes.add(featureVectors[i].getPosition());
+                idealIndexesNames.add(featureVectors[i].getName());
             }
         }
 
+        ArrayList<Integer> allSamples = new ArrayList<Integer>();
+        for (int i = 0; i < numberOfSamples; i++){
+            allSamples.add(i);
+        }
+
+        //         for (int i = 0; i <  idealIndexes.size(); i++){
+        //             System.out.print(idealIndexes.get(i) + "   ");
+        //         }
+
+        for (int i = 0; i < idealIndexes.size(); i++){
+            ArrayList<Integer> temp = new ArrayList<Integer>(); /*= featureVectors[idealIndexes.get(i)].getFullIndexes();*/
+            ArrayList<Boolean> FVList = new ArrayList<Boolean>();
+            FVList = createFVArrayList(i);
+            for (int a = 0; a < numberOfSamples; a++) {
+                if (FVList.get(a) == true) {
+                    temp.add(a);
+                }
+            }
+
+            
+            //int t = allSamples.size();
+            for (int x = 0; x < allSamples.size(); x++){
+                if(!temp.contains(allSamples.get(x))) {
+                    allSamples.remove(x);
+                    x--;
+                }
+            }
+        }
+        //printData(true);
+        filteredDBSamples = allSamples;
+
+    }
+
+    private ArrayList<Boolean> createFVArrayList(int index) {
+        ArrayList<Boolean> FVArrayList = new ArrayList<Boolean>();
+        for (int rowTracker = 0; rowTracker < numberOfSamples; rowTracker++) {
+            FVArrayList.add(sortedDataset[rowTracker][index]);
+        }
+        return FVArrayList;
     }
 
     /**
@@ -672,6 +732,7 @@ public class FVSelection
         {
             WriteFile data = new WriteFile(path, true);
             Scanner scanner = new Scanner(new File(directory));
+            int rowTracker = -1;
             while(scanner.hasNextLine())
             {
                 String[] instances = scanner.nextLine().split(",");
@@ -679,14 +740,19 @@ public class FVSelection
 
                 for (int i = 0; i < idealIndexes.size(); i++) {
                     for (int k = 0; k < instances.length; k++) {
-                        if (idealIndexes.get(i) == k) {
-                            writeThisToFile += instances[k] + ",";
+                        if ((idealIndexes.get(i) == k)) {
+                            if((filteredDBSamples.contains(rowTracker)) || (rowTracker==-1)){
+                                writeThisToFile += instances[k] + ",";
+                            }
                         }
                     }
                 }
-                writeThisToFile += instances[instances.length - 1];
-                data.writeToFile(writeThisToFile);
+                if (!writeThisToFile.equals("") ){
+                    writeThisToFile += instances[instances.length - 1];
+                    data.writeToFile(writeThisToFile);
+                }
                 writeThisToFile = "";
+                rowTracker++;
             }
 
             scanner.close();
@@ -724,7 +790,6 @@ public class FVSelection
         //System.out.println("main6");
         a.dealWithSubsetDataSet();
         //System.out.println("main7");
-        a.printData(true);
 
     }
 }
